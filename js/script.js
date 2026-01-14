@@ -1,34 +1,31 @@
-$(document).ready(function () {
-    // Add smooth scrolling to all links in navbar + footer link
-    $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
-        // Make sure this.hash has a value before overriding default behavior
+$(document).ready(function(){
+    // 부드러운 스크롤
+    $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
         if (this.hash !== "") {
-            // Prevent default anchor click behavior
             event.preventDefault();
-
-            // Store hash
             var hash = this.hash;
-
-            // Using jQuery's animate() method to add smooth page scroll
-            // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 900, function () {
-
-                // Add hash (#) to URL when done scrolling (default click behavior)
-                window.location.hash = hash;
-            });
-        } // End if
+            $('html, body').animate({ scrollTop: $(hash).offset().top - 60 }, 800);
+        }
     });
 
+    // 타이핑 효과
+    var i = 0;
+    var txt = 'BACKEND DEVELOPER'; 
+    function typeWriter() {
+        if (i < txt.length) {
+            document.getElementById("typing-text").innerHTML += txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+    typeWriter();
+
+    // 스크롤 애니메이션
     $(window).scroll(function () {
         $(".slideanim").each(function () {
             var pos = $(this).offset().top;
-
             var winTop = $(window).scrollTop();
-            if (pos < winTop + 600) {
-                $(this).addClass("slide");
-            }
+            if (pos < winTop + 600) { $(this).addClass("slide"); }
         });
     });
-})
+});
